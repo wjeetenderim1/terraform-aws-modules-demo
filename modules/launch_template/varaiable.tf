@@ -57,3 +57,7 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+variable "db_host" {
+  description = "RDS endpoint"
+  type        = string
+}
