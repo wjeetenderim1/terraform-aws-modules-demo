@@ -49,3 +49,43 @@ module "rds" {
   subnet_ids = module.vpc.private_subnet_ids
 
 }
+
+
+module "launch_template" {
+
+  source = "./modules/launch_template"
+
+  name = "web-template"
+
+  security_group_ids = [module.security.ec2_sg_id]
+
+  instance_type = "t2.micro"
+
+  user_data = <<EOF
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl enable httpd
+systemctl start httpd
+echo "Hello from Auto Scaling Instance" > /var/www/html/index.html
+EOF
+
+}
+
+module "autoscaling" {
+
+  source = "./modules/autoscaling_group"
+
+  name = "ingram-asg"
+
+  launch_template_id = module.launch_template.launch_template_id
+
+  subnet_ids = module.vpc.private_subnet_ids
+
+  target_group_arns = [module.alb.target_group_arn]
+
+  min_size = 1
+  max_size = 1
+  desired_capacity = 1
+
+}
