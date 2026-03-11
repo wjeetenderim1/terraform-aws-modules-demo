@@ -9,7 +9,3 @@ variable "vpc_cidr" {
 variable "instance_type" {
   default = "t2.micro"
 }
-variable "db_host" {
-  description = "RDS endpoint"
-  type        = string
-}

@@ -87,7 +87,7 @@ rm -rf wordpress latest.tar.gz
 chown -R apache:apache /var/www/html
 
 # Get RDS endpoint
-DB_HOST="${var.db_host}"
+DB_HOST="${module.rds.rds_endpoint}"
 
 cp wp-config-sample.php wp-config.php
 
