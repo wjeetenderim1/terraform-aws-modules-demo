@@ -11,6 +11,8 @@ resource "aws_lb_target_group" "tg" {
 }
 
 resource "aws_lb_target_group_attachment" "attach" {
+
+  count = var.target_instance_id != null ? 1 : 0
   target_group_arn = aws_lb_target_group.tg.arn
   target_id        = var.target_instance_id
   port             = 80

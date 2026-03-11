@@ -12,20 +12,20 @@ module "security" {
   vpc_id  = module.vpc.vpc_id
 }
 
-module "ec2" {
-  source            = "./modules/ec2"
-  subnet_id         = module.vpc.private_subnet_ids[0]
-  instance_type     = var.instance_type
-  security_group_id = module.security.ec2_sg_id
-  instance_profile  = module.iam_role.instance_profile_name
-}
+# module "ec2" {
+#   source            = "./modules/ec2"
+#   subnet_id         = module.vpc.private_subnet_ids[0]
+#   instance_type     = var.instance_type
+#   security_group_id = module.security.ec2_sg_id
+#   instance_profile  = module.iam_role.instance_profile_name
+# }
+
 
 module "alb" {
   source             = "./modules/alb"
   vpc_id             = module.vpc.vpc_id
   public_subnet_ids  = module.vpc.public_subnet_ids
   alb_sg_id          = module.security.alb_sg_id
-  target_instance_id = module.ec2.instance_id
 }
 
 module "s3" {
@@ -48,4 +48,4 @@ module "iam_role" {
 #   vpc_id     = module.vpc.vpc_id
 #   subnet_ids = module.vpc.private_subnet_ids
 
-# }
+}
