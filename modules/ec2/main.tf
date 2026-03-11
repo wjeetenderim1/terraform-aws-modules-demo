@@ -23,7 +23,11 @@ yum install -y httpd awscli
 yum install -y httpd
 systemctl start httpd
 systemctl enable httpd
-echo "Hello from Private EC2 via ALB" > /var/www/html/index.html
+PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+
+echo "<h1>Auto Scaling Demo</h1>" > /var/www/html/index.html
+echo "<h2>Private IP: $PRIVATE_IP</h2>" >> /var/www/html/index.html
+echo "<h3>Date: $(date)</h3>" >> /var/www/html/index.html
 EOF
 }
 
