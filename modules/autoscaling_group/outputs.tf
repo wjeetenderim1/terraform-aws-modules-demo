@@ -32,3 +32,4 @@ output "cpu_low_alarm_name" {
   description = "Name of the CPU low alarm"
   value       = aws_cloudwatch_metric_alarm.cpu_low.alarm_name
 }
+
