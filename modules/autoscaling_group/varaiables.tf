@@ -41,7 +41,7 @@ variable "desired_capacity" {
 variable "health_check_type" {
   description = "Health check type (EC2 or ELB)"
   type        = string
-  default     = "EC2"
+  default     = "ELB"
   validation {
     condition     = contains(["EC2", "ELB"], var.health_check_type)
     error_message = "Health check type must be either 'EC2' or 'ELB'."
