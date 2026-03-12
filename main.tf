@@ -21,9 +21,9 @@ module "ec2" {
 }
 module "bastion" {
   source            = "./modules/ec2"
-  subnet_id         = module.vpc.private_subnet_ids[0]
+  subnet_id         = module.vpc.public_subnet_ids
   instance_type     = var.instance_type
-  security_group_id = module.security.ec2_sg_id
+  security_group_id = module.security.bastion_sg_id
   instance_profile  = module.iam_role.instance_profile_name
 }
 module "alb" {
